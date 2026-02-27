@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carelicha Duckworth | CS Educator &amp; Healthcare IT Professional</title>
+  <style>
+    :root{--bg:#f0f4f8;--bg-alt:#ffffff;--bg-card:#ffffff;--text:#1a202c;--text-muted:#4a5568;--primary:#1e3a5f;--accent:#2b7de9;--accent-light:#ebf4ff;--accent-hover:#1a62c4;--border:#e2e8f0;--shadow:0 4px 20px rgba(0,0,0,0.08);--shadow-lg:0 10px 40px rgba(0,0,0,0.12);--radius:12px;--nav-h:68px;--transition:0.3s ease}
+    [data-theme="dark"]{--bg:#0f172a;--bg-alt:#1e293b;--bg-card:#1e293b;--text:#f1f5f9;--text-muted:#94a3b8;--primary:#93c5fd;--accent:#3b82f6;--accent-light:#1e3a5f;--accent-hover:#60a5fa;--border:#334155;--shadow:0 4px 20px rgba(0,0,0,0.3);--shadow-lg:0 10px 40px rgba(0,0,0,0.4)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background var(--transition),color var(--transition)}
+    a{color:var(--accent);text-decoration:none} a:hover{color:var(--accent-hover)} img{max-width:100%} ul{list-style:none}
+    h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15} h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700} h3{font-size:clamp(1.1rem,2vw,1.3rem);font-weight:600} p{color:var(--text-muted)}
+    .container{max-width:1100px;margin:0 auto;padding:0 1.5rem} section{padding:5rem 0}
+    .section-label{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+    .section-title{margin-bottom:.75rem} .section-desc{max-width:640px;margin-bottom:3rem}
+    .divider{width:50px;height:4px;background:var(--accent);border-radius:2px;margin:.75rem 0 2rem}
+    .hero-layout{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
+    .hero-photo-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;flex-shrink:0}
+    .hero-photo{width:220px;height:220px;border-radius:50%;object-fit:cover;object-position:top center;border:5px solid var(--accent);box-shadow:0 0 0 8px var(--accent-light),var(--shadow-lg);display:block}
+    .hero-photo-placeholder{width:220px;height:220px;border-radius:50%;background:var(--accent-light);border:5px solid var(--accent);box-shadow:0 0 0 8px var(--accent-light),var(--shadow-lg);display:flex;align-items:center;justify-content:center;font-size:5rem;color:var(--accent)}
+    .linkedin-btn{display:inline-flex;align-items:center;gap:.5rem;background:#0a66c2;color:#fff;font-size:.85rem;font-weight:700;padding:.5rem 1.2rem;border-radius:50px;transition:background var(--transition),transform var(--transition),box-shadow var(--transition);white-space:nowrap}
+    .linkedin-btn:hover{background:#004182;color:#fff;transform:translateY(-2px);box-shadow:0 4px 14px rgba(10,102,194,.4)}
+    .linkedin-icon{width:18px;height:18px;fill:#fff;flex-shrink:0}
+    .github-btn{display:inline-flex;align-items:center;gap:.5rem;background:#24292e;color:#fff;font-size:.85rem;font-weight:700;padding:.5rem 1.2rem;border-radius:50px;transition:background var(--transition),transform var(--transition),box-shadow var(--transition);white-space:nowrap}
+    .github-btn:hover{background:#000;color:#fff;transform:translateY(-2px);box-shadow:0 4px 14px rgba(36,41,46,.4)}
+    .github-icon{width:18px;height:18px;fill:#fff;flex-shrink:0}
+    nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--bg-alt);border-bottom:1px solid var(--border);z-index:1000;transition:background var(--transition),box-shadow var(--transition)}
+    nav.scrolled{box-shadow:var(--shadow)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem;height:100%;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{font-size:1.4rem;font-weight:800;color:var(--primary);letter-spacing:-.03em} .nav-logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:.25rem;align-items:center}
+    .nav-links a{font-size:.88rem;font-weight:500;color:var(--text-muted);padding:.4rem .75rem;border-radius:6px;transition:color var(--transition),background var(--transition)}
+    .nav-links a:hover,.nav-links a.active{color:var(--accent);background:var(--accent-light)}
+    .nav-actions{display:flex;align-items:center;gap:.75rem}
+    .theme-btn{background:none;border:1.5px solid var(--border);border-radius:50px;cursor:pointer;width:42px;height:24px;position:relative;transition:background var(--transition),border-color var(--transition);display:flex;align-items:center;padding:2px}
+    .theme-btn::after{content:'';width:18px;height:18px;border-radius:50%;background:var(--accent);transition:transform var(--transition)}
+    [data-theme="dark"] .theme-btn::after{transform:translateX(18px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:transform var(--transition),opacity var(--transition)}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg-alt);border-bottom:1px solid var(--border);padding:1rem 1.5rem;flex-direction:column;gap:.25rem;z-index:999;box-shadow:var(--shadow-lg)}
+    .mobile-nav.open{display:flex}
+    .mobile-nav a{font-size:.95rem;font-weight:500;color:var(--text-muted);padding:.6rem 1rem;border-radius:8px;transition:color var(--transition),background var(--transition)}
+    .mobile-nav a:hover{color:var(--accent);background:var(--accent-light)}
+    #hero{min-height:100vh;display:flex;align-items:center;padding-top:var(--nav-h);background:linear-gradient(135deg,var(--bg) 0%,var(--bg-alt) 100%);position:relative;overflow:hidden}
+    #hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(43,125,233,.08) 0%,transparent 70%)}
+    #hero::after{content:'';position:absolute;bottom:-150px;left:-150px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(43,125,233,.05) 0%,transparent 70%)}
+    .hero-content{position:relative;z-index:1}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-light);color:var(--accent);font-size:.82rem;font-weight:600;letter-spacing:.05em;padding:.4rem 1rem;border-radius:50px;margin-bottom:1.5rem;border:1px solid rgba(43,125,233,.2)}
+    .hero-badge::before{content:'\25CF';font-size:.6rem;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .hero-name{color:var(--text);margin-bottom:.5rem}
+    .hero-creds{font-size:clamp(1rem,2vw,1.2rem);color:var(--accent);font-weight:600;margin-bottom:1rem}
+    .hero-typing-wrapper{font-size:clamp(1.1rem,2.5vw,1.4rem);color:var(--text-muted);margin-bottom:1.5rem;min-height:2.2rem}
+    .typing-cursor{display:inline-block;width:2px;height:1.1em;background:var(--accent);vertical-align:middle;margin-left:2px;animation:blink .8s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .hero-summary{max-width:600px;font-size:1.05rem;margin-bottom:2rem;line-height:1.7}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all var(--transition);border:2px solid transparent}
+    .btn-primary{background:var(--accent);color:#fff} .btn-primary:hover{background:var(--accent-hover);color:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(43,125,233,.35)}
+    .btn-outline{background:transparent;color:var(--accent);border-color:var(--accent)} .btn-outline:hover{background:var(--accent-light);transform:translateY(-2px)}
+    .hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap}
+    .hero-stat-num{font-size:2rem;font-weight:800;color:var(--accent);line-height:1} .hero-stat-label{font-size:.82rem;color:var(--text-muted);margin-top:.25rem}
+    #about{background:var(--bg-alt)} .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    .about-text p{font-size:1.05rem;line-height:1.8;margin-bottom:1.25rem}
+    .about-contact-list{margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem}
+    .about-contact-item{display:flex;align-items:center;gap:.75rem;font-size:.95rem}
+    .about-contact-icon{width:36px;height:36px;border-radius:8px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .about-cards{display:flex;flex-direction:column;gap:1.25rem}
+    .about-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);display:flex;align-items:flex-start;gap:1rem;transition:transform var(--transition),box-shadow var(--transition)}
+    .about-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+    .about-card-icon{font-size:2rem;line-height:1} .about-card h3{font-size:1.5rem;color:var(--accent);font-weight:800} .about-card p{font-size:.88rem;margin-top:.2rem}
+    #skills{background:var(--bg)} .skills-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    .skill-group-title{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:2px solid var(--accent-light)}
+    .skill-item{margin-bottom:1.2rem;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease} .skill-item.visible{opacity:1;transform:translateY(0)}
+    .skill-row{display:flex;justify-content:space-between;margin-bottom:.4rem} .skill-name{font-size:.9rem;font-weight:500} .skill-pct{font-size:.82rem;color:var(--text-muted)}
+    .skill-bar-bg{height:6px;background:var(--border);border-radius:3px;overflow:hidden} .skill-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),#60a5fa);width:0;transition:width 1s ease}
+    #experience{background:var(--bg-alt)} .exp-tabs{display:flex;gap:.5rem;margin-bottom:2.5rem;border-bottom:2px solid var(--border)}
+    .exp-tab-btn{background:none;border:none;padding:.75rem 1.5rem;font-size:.95rem;font-weight:600;color:var(--text-muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color var(--transition),border-color var(--transition)}
+    .exp-tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)} .exp-panel{display:none} .exp-panel.active{display:block}
+    .timeline{position:relative;padding-left:2rem} .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:var(--border)}
+    .timeline-item{position:relative;margin-bottom:2.5rem;opacity:0;transform:translateX(-20px);transition:opacity .5s ease,transform .5s ease} .timeline-item.visible{opacity:1;transform:translateX(0)}
+    .timeline-dot{position:absolute;left:-2.45rem;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg-alt);box-shadow:0 0 0 3px var(--accent)}
+    .timeline-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.35rem}
+    .timeline-role{font-size:1.05rem;font-weight:700} .timeline-date{font-size:.82rem;font-weight:600;color:var(--accent);background:var(--accent-light);padding:.2rem .75rem;border-radius:50px;white-space:nowrap}
+    .timeline-org{font-size:.92rem;font-weight:500;color:var(--text-muted);margin-bottom:.75rem}
+    .timeline-bullets{padding-left:1.25rem;list-style:disc} .timeline-bullets li{font-size:.9rem;color:var(--text-muted);margin-bottom:.4rem;line-height:1.55;list-style:disc}
+    #education{background:var(--bg)} .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .edu-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow);transition:transform var(--transition),box-shadow var(--transition);position:relative;overflow:hidden}
+    .edu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),#60a5fa)}
+    .edu-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .edu-degree-type{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+    .edu-degree{font-size:1rem;font-weight:700;margin-bottom:.25rem} .edu-field{font-size:.88rem;color:var(--text-muted);margin-bottom:1rem} .edu-meta{display:flex;flex-direction:column;gap:.3rem} .edu-school{font-size:.9rem;font-weight:600} .edu-year{font-size:.82rem;color:var(--text-muted)}
+    #certifications{background:var(--bg-alt)} .cert-filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+    .cert-filter-btn{background:var(--bg-card);border:1.5px solid var(--border);border-radius:50px;padding:.4rem 1rem;font-size:.85rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all var(--transition)}
+    .cert-filter-btn.active,.cert-filter-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+    .cert-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow);transition:transform var(--transition),box-shadow var(--transition);display:flex;align-items:flex-start;gap:1rem}
+    .cert-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)} .cert-card.hidden{display:none}
+    .cert-badge{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;background:var(--accent-light)}
+    .cert-info{flex:1;min-width:0} .cert-name{font-size:.92rem;font-weight:700;line-height:1.35;margin-bottom:.35rem} .cert-issuer{font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem}
+    .cert-status{display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:700;padding:.2rem .65rem;border-radius:50px}
+    .cert-status.active-fixed{background:#dcfce7;color:#166534} .cert-status.active-perma{background:#dbeafe;color:#1e40af} .cert-status.no-exp{background:#f0f9ff;color:#0369a1}
+    [data-theme="dark"] .cert-status.active-fixed{background:#14532d;color:#86efac} [data-theme="dark"] .cert-status.active-perma{background:#1e3a5f;color:#93c5fd} [data-theme="dark"] .cert-status.no-exp{background:#0c4a6e;color:#7dd3fc}
+    #contact{background:var(--bg)} .contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:start} .contact-info-cards{display:flex;flex-direction:column;gap:1rem}
+    .contact-card{display:flex;align-items:center;gap:1rem;padding:1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);transition:transform var(--transition)} .contact-card:hover{transform:translateX(4px)}
+    .contact-card-icon{width:46px;height:46px;border-radius:10px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .contact-card-label{font-size:.78rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em} .contact-card-value{font-size:.95rem;font-weight:600;margin-top:.1rem} .contact-card-value a{color:var(--text)} .contact-card-value a:hover{color:var(--accent)}
+    .contact-form{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem} .form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.25rem}
+    label{font-size:.85rem;font-weight:600;color:var(--text)}
+    input,textarea{padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:.95rem;font-family:inherit;transition:border-color var(--transition),box-shadow var(--transition);width:100%}
+    input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(43,125,233,.15)} input.error,textarea.error{border-color:#e53e3e}
+    .field-error{font-size:.78rem;color:#e53e3e;margin-top:.15rem;display:none} .field-error.visible{display:block}
+    textarea{resize:vertical;min-height:130px} .form-submit{width:100%;justify-content:center;font-size:1rem;padding:.85rem}
+    .form-success{display:none;text-align:center;padding:1.5rem;background:#dcfce7;color:#166534;border-radius:8px;font-weight:600;margin-top:1rem}
+    [data-theme="dark"] .form-success{background:#14532d;color:#86efac} .form-success.visible{display:block}
+    footer{background:var(--primary);color:rgba(255,255,255,.85);padding:3rem 0 2rem;text-align:center}
+    [data-theme="dark"] footer{background:#0f172a;border-top:1px solid var(--border)}
+    .footer-name{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:.35rem} .footer-tagline{font-size:.9rem;margin-bottom:1.5rem}
+    .footer-affiliations{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem}
+    .footer-badge{font-size:.78rem;font-weight:700;padding:.3rem .9rem;border-radius:50px;border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.85)} .footer-copy{font-size:.8rem;opacity:.55}
+    .scroll-top{position:fixed;bottom:2rem;right:2rem;width:46px;height:46px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(43,125,233,.4);opacity:0;pointer-events:none;transition:opacity var(--transition),transform var(--transition);z-index:999}
+    .scroll-top.visible{opacity:1;pointer-events:all} .scroll-top:hover{transform:translateY(-3px)}
+    .fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease} .fade-in.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}.hero-layout{grid-template-columns:1fr}.hero-photo-wrap{flex-direction:row;justify-content:flex-start;gap:1.5rem}.hero-photo,.hero-photo-placeholder{width:100px;height:100px;font-size:2.5rem}.about-grid{grid-template-columns:1fr;gap:2.5rem}.skills-groups{grid-template-columns:1fr;gap:2.5rem}.edu-grid{grid-template-columns:repeat(2,1fr)}.contact-grid{grid-template-columns:1fr;gap:2.5rem}}
+    @media(max-width:600px){.edu-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hero-stats{gap:1.5rem}section{padding:3.5rem 0}.hero-photo-wrap{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">C<span>D</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#education">Education</a></li><li><a href="#certifications">Certifications</a></li><li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="linkedin-btn" href="https://www.linkedin.com/in/carelicha-d-66733b20" target="_blank" rel="noopener">
+        <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a class="github-btn" href="https://github.com/DrDuckworthTri-C" target="_blank" rel="noopener">
+        <svg class="github-icon" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        <span>GitHub</span>
+      </a>
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode"></button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#about" onclick="closeMobileNav()">About</a><a href="#skills" onclick="closeMobileNav()">Skills</a><a href="#experience" onclick="closeMobileNav()">Experience</a><a href="#education" onclick="closeMobileNav()">Education</a><a href="#certifications" onclick="closeMobileNav()">Certifications</a><a href="#contact" onclick="closeMobileNav()">Contact</a>
+  <a href="https://www.linkedin.com/in/carelicha-d-66733b20" target="_blank" rel="noopener" onclick="closeMobileNav()">LinkedIn &#8599;</a>
+  <a href="https://github.com/DrDuckworthTri-C" target="_blank" rel="noopener" onclick="closeMobileNav()">GitHub &#8599;</a>
+</div>
+<section id="hero">
+  <div class="container hero-content">
+    <div class="hero-layout">
+      <div>
+        <div class="hero-badge">Available for Full-Time Faculty Positions</div>
+        <h1 class="hero-name">Carelicha Duckworth</h1>
+        <div class="hero-creds">PhD &nbsp;|&nbsp; MSHI &nbsp;|&nbsp; CCA &nbsp;|&nbsp; CAHIMS</div>
+        <div class="hero-typing-wrapper"><span id="typing-text"></span><span class="typing-cursor"></span></div>
+        <p class="hero-summary">Dynamic educator and healthcare IT professional with <strong>15+ years of industry experience</strong> translating complex technical concepts into accessible, career-ready curriculum. Currently serving as Adjunct Faculty &amp; CCP Preceptor at Tri-C &mdash; improving CompTIA Tech+ pass rates from 35% to 50% in the first academic year.</p>
+        <div class="hero-btns">
+          <a class="btn btn-primary" href="Duckworth_Resume_TriC_Lecturer_CS_02232026.pdf" target="_blank">&#128196; View Resume</a>
+          <a class="btn btn-outline" href="#contact">&#9993; Contact Me</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="hero-stat-num">15+</div><div class="hero-stat-label">Years of Experience</div></div>
+          <div><div class="hero-stat-num">PhD</div><div class="hero-stat-label">Information Systems, 2024</div></div>
+          <div><div class="hero-stat-num">50%</div><div class="hero-stat-label">Student Pass Rate Achieved</div></div>
+          <div><div class="hero-stat-num">15</div><div class="hero-stat-label">Certifications &amp; Credentials</div></div>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <img src="photo.png" alt="Carelicha Duckworth" class="hero-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="hero-photo-placeholder" style="display:none;">&#128100;</div>
+        <a class="linkedin-btn" href="https://www.linkedin.com/in/carelicha-d-66733b20" target="_blank" rel="noopener">
+          <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Connect on LinkedIn
+        </a>
+        <a class="github-btn" href="https://github.com/DrDuckworthTri-C" target="_blank" rel="noopener" style="margin-top:.5rem;">
+          <svg class="github-icon" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          View GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <span class="section-label">About Me</span>
+        <h2 class="section-title">Educator. Technologist. Innovator.</h2>
+        <div class="divider"></div>
+        <p>I am a dynamic educator and healthcare IT professional with a PhD in Information Systems and over 15 years of industry experience transforming complex technical concepts into accessible, career-ready curriculum. My work bridges computer science fundamentals, healthcare informatics, and real-world technology &mdash; creating inclusive, hands-on learning environments where students thrive.</p>
+        <p>Currently serving as Adjunct Faculty and College Credit Plus Preceptor at Cuyahoga Community College (Tri-C), I design and deliver CompTIA Tech+ certification preparatory courses to high school students ages 14&ndash;18. I am committed to student success, faculty collaboration, and growing Tri-C's Computer Science pipeline.</p>
+        <p>Previously, I spent nearly a decade as a Senior IT Clinical Applications Analyst at University Hospitals, leading Epic EHR implementations and mentoring cross-functional technical teams &mdash; experience that directly informs my teaching of systems analysis, workflow design, and technical problem-solving.</p>
+        <div class="about-contact-list">
+          <div class="about-contact-item"><div class="about-contact-icon">&#128205;</div><span>Richmond Heights, OH 44143</span></div>
+          <div class="about-contact-item"><div class="about-contact-icon">&#128222;</div><span>216-830-6338</span></div>
+          <div class="about-contact-item"><div class="about-contact-icon">&#9993;</div><a href="mailto:Carelicha.Duckworth@tri-c.edu">Carelicha.Duckworth@tri-c.edu</a></div>
+          <div class="about-contact-item">
+            <div class="about-contact-icon" style="background:#e8f0fb;"><svg style="width:20px;height:20px;fill:#0a66c2;" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
+            <a href="https://www.linkedin.com/in/carelicha-d-66733b20" target="_blank" rel="noopener">linkedin.com/in/carelicha-d-66733b20</a>
+          </div>
+          <div class="about-contact-item">
+            <div class="about-contact-icon" style="background:#f0f0f0;"><svg style="width:20px;height:20px;fill:#24292e;" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div>
+            <a href="https://github.com/DrDuckworthTri-C" target="_blank" rel="noopener">github.com/DrDuckworthTri-C</a>
+          </div>
+        </div>
+      </div>
+      <div class="about-cards fade-in">
+        <div class="about-card"><div class="about-card-icon">&#127979;</div><div><h3>15+</h3><p>Years combining healthcare IT expertise with curriculum design and instructional delivery</p></div></div>
+        <div class="about-card"><div class="about-card-icon">&#127891;</div><div><h3>PhD 2024</h3><p>Information Systems, Technology &amp; Innovation Management &mdash; National University</p></div></div>
+        <div class="about-card"><div class="about-card-icon">&#128200;</div><div><h3>35% &rarr; 50%</h3><p>Student CompTIA certification pass rate improvement in first academic year at Tri-C</p></div></div>
+        <div class="about-card"><div class="about-card-icon">&#129302;</div><div><h3>AI Integrator</h3><p>Google AI for Education Accelerator participant &mdash; integrating AI tools into CS coursework</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="skills">
+  <div class="container">
+    <span class="section-label">Core Competencies</span>
+    <h2 class="section-title">Skills &amp; Expertise</h2>
+    <div class="divider"></div>
+    <p class="section-desc">A unique combination of computer science instruction, healthcare IT systems, and educational technology skills developed over 15+ years of professional practice.</p>
+    <div class="skills-groups">
+      <div>
+        <div class="skill-group-title">&#128218; CS Instruction &amp; EdTech</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Curriculum Design &amp; Development</span><span class="skill-pct">95%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">CompTIA Certification Prep (Tech+)</span><span class="skill-pct">95%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Active Learning &amp; Hands-On Labs</span><span class="skill-pct">90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">AI Integration in Education</span><span class="skill-pct">88%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">College Credit Plus (CCP) Programs</span><span class="skill-pct">90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Student Mentorship &amp; Advising</span><span class="skill-pct">92%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="92"></div></div></div>
+      </div>
+      <div>
+        <div class="skill-group-title">&#127973; Healthcare IT &amp; Systems</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Epic EHR Systems</span><span class="skill-pct">95%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">HL7 Interfaces &amp; Interoperability</span><span class="skill-pct">88%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Clinical Workflow Design</span><span class="skill-pct">92%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="92"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Change Management</span><span class="skill-pct">90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">ICD-10 &amp; Medical Coding</span><span class="skill-pct">85%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">EMR Implementation &amp; Support</span><span class="skill-pct">90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+      </div>
+      <div>
+        <div class="skill-group-title">&#128187; Tools &amp; Technologies</div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">HTML, CSS &amp; JavaScript</span><span class="skill-pct">80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Data Analysis &amp; Power BI</span><span class="skill-pct">85%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Technical Support &amp; Troubleshooting</span><span class="skill-pct">90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Google Workspace &amp; AI Tools</span><span class="skill-pct">88%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">AI &amp; Data Science with Python</span><span class="skill-pct">75%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Networking &amp; Cybersecurity Fundamentals</span><span class="skill-pct">78%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="experience">
+  <div class="container">
+    <span class="section-label">Career History</span>
+    <h2 class="section-title">Professional Experience</h2>
+    <div class="divider"></div>
+    <div class="exp-tabs">
+      <button class="exp-tab-btn active" data-tab="teaching">&#127979; Teaching &amp; Training</button>
+      <button class="exp-tab-btn" data-tab="professional">&#128188; Healthcare IT</button>
+    </div>
+    <div class="exp-panel active" id="tab-teaching">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header"><div class="timeline-role">Adjunct Faculty &amp; College Credit Plus Preceptor</div><div class="timeline-date">2024 &ndash; Present</div></div>
+          <div class="timeline-org">Cuyahoga Community College (Tri-C) &mdash; Metro/Eastern Campus, Cleveland, OH</div>
+          <ul class="timeline-bullets">
+            <li>Design and deliver CompTIA Tech+ certification preparatory curriculum for high school students (ages 14&ndash;18) through the College Credit Plus (CCP) program.</li>
+            <li>Increased student certification pass rates from <strong>35% to 50%</strong> in the first academic year through curriculum redesign emphasizing active learning, hands-on labs, and adaptive instruction.</li>
+            <li>Integrated AI-powered educational tools and Google AI for Education Accelerator frameworks into course delivery to enhance student engagement and outcomes.</li>
+            <li>Developed comprehensive course materials including lab exercises, assessments, and study guides aligned to CompTIA exam objectives and industry standards.</li>
+            <li>Facilitated summer cohort of 10 students, managing instruction, mentorship, and formative assessment throughout an intensive program cycle.</li>
+            <li>Collaborate with campus administration and partner high schools to expand CCP pathways and build a sustainable Computer Science pipeline.</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header"><div class="timeline-role">Guest Lecturer &amp; Training Specialist</div><div class="timeline-date">2012 &ndash; 2016</div></div>
+          <div class="timeline-org">Dolbey Systems, Inc. / ALEGO Health (Consulting)</div>
+          <ul class="timeline-bullets">
+            <li>Delivered remote and on-site end-user training on clinical software applications to healthcare professionals across multiple sites.</li>
+            <li>Developed end-user training materials, job aids, and instructional guides for non-technical clinical staff.</li>
+            <li>Assessed user competency and provided individualized coaching to support successful technology adoption.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="exp-panel" id="tab-professional">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header"><div class="timeline-role">Senior IT Clinical Applications Analyst</div><div class="timeline-date">Jul 2016 &ndash; Dec 2024</div></div>
+          <div class="timeline-org">University Hospitals Health System &mdash; Cleveland, OH</div>
+          <ul class="timeline-bullets">
+            <li>Led analysis, design, configuration, and support of complex Epic EHR systems including RadOnc, Ambulatory, and ancillary modules across a major academic health system.</li>
+            <li>Facilitated clinical workflow design sessions with physicians, nurses, and department leaders to optimize system efficiency and quality outcomes.</li>
+            <li>Developed and maintained comprehensive system documentation, flowcharts, and training materials for clinical end users.</li>
+            <li>Managed HL7 interface troubleshooting and Epic/MOSAIQ/Ethos integrations, demonstrating deep technical proficiency in systems architecture and data interoperability.</li>
+            <li>Mentored and onboarded new analysts; coordinated cross-functional teams during system upgrades and go-live events.</li>
+            <li>Applied change management principles to support successful deployments, ensuring staff readiness and adoption.</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header"><div class="timeline-role">Electronic Medical Record (EMR) Support Specialist</div><div class="timeline-date">May 2012 &ndash; Aug 2015</div></div>
+          <div class="timeline-org">ALEGO Health (PRN Consulting)</div>
+          <ul class="timeline-bullets">
+            <li>Provided implementation and post-live support for EHR systems across community and critical access hospitals.</li>
+            <li>Conducted needs assessments, developed training content, and delivered classroom and remote instruction.</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header"><div class="timeline-role">Inpatient Medical Coder Level II</div><div class="timeline-date">May 2011 &ndash; Apr 2013</div></div>
+          <div class="timeline-org">University Hospitals of Cleveland</div>
+          <ul class="timeline-bullets"><li>Applied ICD-10-CM/PCS/CPT coding to complex inpatient records; supported CAC/NLP software tuning and quality assurance.</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="education">
+  <div class="container">
+    <span class="section-label">Academic Background</span>
+    <h2 class="section-title">Education</h2>
+    <div class="divider"></div>
+    <div class="edu-grid">
+      <div class="edu-card fade-in"><div class="edu-degree-type">Doctoral Degree</div><div class="edu-degree">Doctor of Philosophy (PhD)</div><div class="edu-field">Information Systems, Technology &amp; Innovation Management</div><div class="edu-meta"><div class="edu-school">&#127979; National University &mdash; San Diego, CA</div><div class="edu-year">&#128197; Conferred February 2024</div></div></div>
+      <div class="edu-card fade-in"><div class="edu-degree-type">Master's Degree</div><div class="edu-degree">Master of Science &mdash; Health Informatics</div><div class="edu-field">Health Informatics (MSHI)</div><div class="edu-meta"><div class="edu-school">&#127979; University of Cincinnati &mdash; Cincinnati, OH</div><div class="edu-year">&#128197; Conferred April 2018</div></div></div>
+      <div class="edu-card fade-in"><div class="edu-degree-type">Bachelor's Degree</div><div class="edu-degree">Bachelor of Science</div><div class="edu-field">Health Information Management</div><div class="edu-meta"><div class="edu-school">&#127979; University of Toledo &mdash; Toledo, OH</div><div class="edu-year">&#128197; Conferred August 2009</div></div></div>
+    </div>
+  </div>
+</section>
+<section id="certifications">
+  <div class="container">
+    <span class="section-label">Professional Credentials</span>
+    <h2 class="section-title">Certifications &amp; Credentials</h2>
+    <div class="divider"></div>
+    <p class="section-desc">15 active professional credentials spanning healthcare IT, cybersecurity, cloud, networking, and AI education.</p>
+    <div class="cert-filters">
+      <button class="cert-filter-btn active" data-filter="all">All (15)</button>
+      <button class="cert-filter-btn" data-filter="fixed-term">Fixed-Term Active</button>
+      <button class="cert-filter-btn" data-filter="no-exp">No Expiration</button>
+      <button class="cert-filter-btn" data-filter="healthcare">Healthcare</button>
+      <button class="cert-filter-btn" data-filter="tech">Technology</button>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card" data-categories="fixed-term healthcare"><div class="cert-badge">&#9889;</div><div class="cert-info"><div class="cert-name">EpicCare Ambulatory</div><div class="cert-issuer">Epic Systems Corporation</div><span class="cert-status active-fixed">&#9679; Valid Through Apr 2027</span></div></div>
+      <div class="cert-card" data-categories="fixed-term healthcare"><div class="cert-badge">&#127973;</div><div class="cert-info"><div class="cert-name">CAHIMS &mdash; Certified Associate in Healthcare Information &amp; Management Systems</div><div class="cert-issuer">HIMSS</div><span class="cert-status active-fixed">&#9679; Valid Through Dec 2025</span></div></div>
+      <div class="cert-card" data-categories="fixed-term tech"><div class="cert-badge">&#128736;</div><div class="cert-info"><div class="cert-name">ITIL 4 Foundation</div><div class="cert-issuer">PeopleCert</div><span class="cert-status active-fixed">&#9679; Valid Through May 2026</span></div></div>
+      <div class="cert-card" data-categories="no-exp healthcare"><div class="cert-badge">&#128203;</div><div class="cert-info"><div class="cert-name">CCA &mdash; Certified Coding Associate</div><div class="cert-issuer">AHIMA</div><span class="cert-status active-perma">&#10003; Permanently Active</span></div></div>
+      <div class="cert-card" data-categories="no-exp healthcare"><div class="cert-badge">&#127979;</div><div class="cert-info"><div class="cert-name">CHTS-TR &mdash; Healthcare Technology Specialist, Trainer</div><div class="cert-issuer">AHIMA</div><span class="cert-status active-perma">&#10003; Permanently Active</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#128202;</div><div class="cert-info"><div class="cert-name">Microsoft Power BI: Data Analysis Professional</div><div class="cert-issuer">The Computer Workshop</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#128187;</div><div class="cert-info"><div class="cert-name">Technical Support Fundamentals</div><div class="cert-issuer">Coursera / Google</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#127760;</div><div class="cert-info"><div class="cert-name">The Bits and Bytes of Computer Networking</div><div class="cert-issuer">Coursera / Google</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#128736;</div><div class="cert-info"><div class="cert-name">CompTIA Tech+</div><div class="cert-issuer">CompTIA</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#129302;</div><div class="cert-info"><div class="cert-name">AI and Data Science with Python</div><div class="cert-issuer">NITIC &mdash; Spring 2025 Working Connections</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#128274;</div><div class="cert-info"><div class="cert-name">Intro to Cyber for Beginners: Foundations for Cybersecurity</div><div class="cert-issuer">NITIC &mdash; Winter 2025 Working Connections</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#128421;</div><div class="cert-info"><div class="cert-name">CompTIA Server+ / Server Administration</div><div class="cert-issuer">NITIC &mdash; Fall 2025 Working Connections</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#127775;</div><div class="cert-info"><div class="cert-name">Introduction to Generative AI for Education</div><div class="cert-issuer">Microsoft</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#9925;</div><div class="cert-info"><div class="cert-name">AWS Academy Educator</div><div class="cert-issuer">Amazon Web Services</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+      <div class="cert-card" data-categories="no-exp tech"><div class="cert-badge">&#128225;</div><div class="cert-info"><div class="cert-name">CCNA: Introduction to Networks</div><div class="cert-issuer">Cisco</div><span class="cert-status no-exp">&#8734; No Expiration</span></div></div>
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <div class="container">
+    <span class="section-label">Get In Touch</span>
+    <h2 class="section-title">Contact Me</h2>
+    <div class="divider"></div>
+    <p class="section-desc">Interested in discussing faculty opportunities, academic collaboration, or curriculum development? I'd love to connect.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-cards">
+          <div class="contact-card"><div class="contact-card-icon">&#9993;</div><div><div class="contact-card-label">Email (Institutional)</div><div class="contact-card-value"><a href="mailto:Carelicha.Duckworth@tri-c.edu">Carelicha.Duckworth@tri-c.edu</a></div></div></div>
+          <div class="contact-card"><div class="contact-card-icon">&#9993;</div><div><div class="contact-card-label">Email (Personal)</div><div class="contact-card-value"><a href="mailto:carelicha@yahoo.com">carelicha@yahoo.com</a></div></div></div>
+          <div class="contact-card"><div class="contact-card-icon">&#128222;</div><div><div class="contact-card-label">Phone</div><div class="contact-card-value"><a href="tel:2168306338">216-830-6338</a></div></div></div>
+          <div class="contact-card"><div class="contact-card-icon">&#128205;</div><div><div class="contact-card-label">Location</div><div class="contact-card-value">Richmond Heights, OH 44143</div></div></div>
+          <div class="contact-card">
+            <div class="contact-card-icon" style="background:#e8f0fb;"><svg style="width:22px;height:22px;fill:#0a66c2;" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
+            <div><div class="contact-card-label">LinkedIn</div><div class="contact-card-value"><a href="https://www.linkedin.com/in/carelicha-d-66733b20" target="_blank" rel="noopener">linkedin.com/in/carelicha-d-66733b20</a></div></div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon" style="background:#f0f0f0;"><svg style="width:22px;height:22px;fill:#24292e;" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div>
+            <div><div class="contact-card-label">GitHub</div><div class="contact-card-value"><a href="https://github.com/DrDuckworthTri-C" target="_blank" rel="noopener">github.com/DrDuckworthTri-C</a></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);">
+          <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.75rem;">Professional Affiliations</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem;">
+            <span style="font-size:.9rem;">&#128218; Google AI for Education Accelerator &mdash; Active Participant (2024&ndash;Present)</span>
+            <span style="font-size:.9rem;">&#127973; AHIMA &mdash; American Health Information Management Association</span>
+            <span style="font-size:.9rem;">&#128187; HIMSS &mdash; Healthcare Information &amp; Management Systems Society</span>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" id="contact-form" novalidate>
+        <h3 style="margin-bottom:1.5rem;font-size:1.15rem;">Send a Message</h3>
+        <div class="form-row">
+          <div class="form-group"><label for="fname">First Name <span style="color:#e53e3e">*</span></label><input type="text" id="fname" name="fname" placeholder="Jane" /><span class="field-error" id="fname-err">Please enter your first name.</span></div>
+          <div class="form-group"><label for="lname">Last Name <span style="color:#e53e3e">*</span></label><input type="text" id="lname" name="lname" placeholder="Smith" /><span class="field-error" id="lname-err">Please enter your last name.</span></div>
+        </div>
+        <div class="form-group"><label for="email">Email Address <span style="color:#e53e3e">*</span></label><input type="email" id="email" name="email" placeholder="jane.smith@example.com" /><span class="field-error" id="email-err">Please enter a valid email address.</span></div>
+        <div class="form-group"><label for="subject">Subject <span style="color:#e53e3e">*</span></label><input type="text" id="subject" name="subject" placeholder="Faculty Position Inquiry" /><span class="field-error" id="subject-err">Please enter a subject.</span></div>
+        <div class="form-group"><label for="message">Message <span style="color:#e53e3e">*</span></label><textarea id="message" name="message" placeholder="I'm reaching out regarding..."></textarea><span class="field-error" id="message-err">Please enter a message (at least 10 characters).</span></div>
+        <button type="submit" class="btn btn-primary form-submit">&#128233; Send Message</button>
+        <div class="form-success" id="form-success">&#10003; Thank you! Your message has been sent. I'll be in touch soon.</div>
+      </form>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="footer-name">Carelicha Duckworth, PhD</div>
+    <div class="footer-tagline">CS Educator &nbsp;|&nbsp; Healthcare IT Professional &nbsp;|&nbsp; Curriculum Designer</div>
+    <div class="footer-affiliations">
+      <span class="footer-badge">AHIMA Member</span><span class="footer-badge">HIMSS Member</span><span class="footer-badge">Google AI for Education</span><span class="footer-badge">AWS Academy Educator</span>
+    </div>
+    <div style="margin-bottom:1.25rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/carelicha-d-66733b20" target="_blank" rel="noopener" class="linkedin-btn">
+        <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        View LinkedIn Profile
+      </a>
+      <a href="https://github.com/DrDuckworthTri-C" target="_blank" rel="noopener" class="github-btn">
+        <svg class="github-icon" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        View GitHub Profile
+      </a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Carelicha Duckworth &nbsp;&middot;&nbsp; Richmond Heights, OH</div>
+  </div>
+</footer>
+<button class="scroll-top" id="scroll-top" aria-label="Scroll to top">&#8679;</button>
+<script>
+  const html=document.documentElement,themeBtn=document.getElementById('theme-toggle');
+  (function(){const s=localStorage.getItem('theme');if(s)html.setAttribute('data-theme',s)})();
+  themeBtn.addEventListener('click',()=>{const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('theme',n)});
+  const hamburger=document.getElementById('hamburger'),mobileNav=document.getElementById('mobile-nav');
+  hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileNav.classList.toggle('open')});
+  function closeMobileNav(){hamburger.classList.remove('open');mobileNav.classList.remove('open')}
+  const mainNav=document.getElementById('main-nav'),navLinks=document.querySelectorAll('.nav-links a'),sections=document.querySelectorAll('section[id]'),scrollTopBtn=document.getElementById('scroll-top');
+  window.addEventListener('scroll',()=>{
+    mainNav.classList.toggle('scrolled',window.scrollY>10);
+    let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-110)c=s.id});
+    navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c));
+    scrollTopBtn.classList.toggle('visible',window.scrollY>400);
+  });
+  scrollTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  const phrases=['CS Lecturer & Educator','Healthcare IT Professional','Curriculum Designer','CompTIA Tech+ Instructor','AI Education Advocate','EHR Systems Expert'];
+  let pi=0,ci=0,del=false;const te=document.getElementById('typing-text');
+  function typeLoop(){const p=phrases[pi];if(!del){te.textContent=p.slice(0,++ci);if(ci===p.length){del=true;setTimeout(typeLoop,2000);return}}else{te.textContent=p.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(typeLoop,400);return}}setTimeout(typeLoop,del?50:80)}
+  typeLoop();
+  const fadeObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');fadeObs.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.fade-in').forEach(el=>fadeObs.observe(el));
+  const skillObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const f=e.target.querySelector('.skill-bar-fill');if(f)setTimeout(()=>{f.style.width=f.getAttribute('data-width')+'%'},200);skillObs.unobserve(e.target)}})},{threshold:.2});
+  document.querySelectorAll('.skill-item').forEach((el,i)=>{el.style.transitionDelay=(i%6)*.08+'s';skillObs.observe(el)});
+  const tlObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');tlObs.unobserve(e.target)}})},{threshold:.1});
+  document.querySelectorAll('.timeline-item').forEach(el=>tlObs.observe(el));
+  document.querySelectorAll('.exp-tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const t=btn.getAttribute('data-tab');document.querySelectorAll('.exp-tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.exp-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+t).classList.add('active');document.querySelectorAll('#tab-'+t+' .timeline-item').forEach(el=>{el.classList.remove('visible');tlObs.observe(el)})})});
+  const cfBtns=document.querySelectorAll('.cert-filter-btn'),cCards=document.querySelectorAll('.cert-card');
+  cfBtns.forEach(btn=>btn.addEventListener('click',()=>{const f=btn.getAttribute('data-filter');cfBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');cCards.forEach(c=>c.classList.toggle('hidden',f!=='all'&&!(c.getAttribute('data-categories')||'').includes(f)))}));
+  const form=document.getElementById('contact-form');
+  function showErr(id,show){document.getElementById(id+'-err')?.classList.toggle('visible',show);document.getElementById(id)?.classList.toggle('error',show)}
+  function validEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
+  form.addEventListener('submit',e=>{e.preventDefault();const fn=document.getElementById('fname').value.trim(),ln=document.getElementById('lname').value.trim(),em=document.getElementById('email').value.trim(),su=document.getElementById('subject').value.trim(),ms=document.getElementById('message').value.trim();let ok=true;[['fname',!fn],['lname',!ln],['email',!validEmail(em)],['subject',!su],['message',ms.length<10]].forEach(([id,fail])=>{showErr(id,fail);if(fail)ok=false});if(ok){const s=document.getElementById('form-success');s.classList.add('visible');form.reset();['fname','lname','email','subject','message'].forEach(id=>showErr(id,false));setTimeout(()=>s.classList.remove('visible'),6000)}});
+  ['fname','lname','email','subject','message'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>showErr(id,false)));
+</script>
+</body>
+</html>
