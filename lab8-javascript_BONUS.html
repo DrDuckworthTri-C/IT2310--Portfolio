@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Button</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        /* Blue state for name button when clicked */
+        button.clicked {
+            background-color: #1a73e8;
+        }
+        button.clicked:hover {
+            background-color: #1558b0;
+        }
+        /* Style for the second (email) button */
+        #emailButton {
+            background-color: #e67e22;
+        }
+        #emailButton:hover {
+            background-color: #ca6f1e;
+        }
+        /* Greeting paragraph styling */
+        #greetingMessage {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a73e8;
+            margin-top: 20px;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Page</h1>
+
+    <!-- Button 1: Asks for name, turns blue, shows greeting in paragraph -->
+    <button id="nameButton">Click Me!</button>
+
+    <!-- Button 2: Asks for email, uses alert() -->
+    <button id="emailButton">Enter Email</button>
+
+    <!-- Greeting paragraph (starts empty, fills on button click) -->
+    <p id="greetingMessage"></p>
+
+    <script>
+        // Output name to the document
+        document.write("Carelicha Duckworth");
+
+        // --- Button 1: Name Button ---
+        const nameButton = document.getElementById("nameButton");
+        const greetingMessage = document.getElementById("greetingMessage");
+
+        nameButton.addEventListener("click", () => {
+            // Prompt the user to enter their name
+            const user = prompt("What is your name?");
+
+            // Change button background color to blue when clicked
+            nameButton.classList.add("clicked");
+
+            // Show greeting in a paragraph instead of changing button text
+            if (user) {
+                greetingMessage.textContent = `Hello, ${user}! Welcome to the page.`;
+            } else {
+                greetingMessage.textContent = "No name entered. Try again!";
+            }
+        });
+
+        // --- Button 2: Email Button ---
+        const emailButton = document.getElementById("emailButton");
+
+        emailButton.addEventListener("click", () => {
+            // Prompt the user to enter their email address
+            const email = prompt("What is your email address?");
+
+            // Use alert() to display the result
+            if (email) {
+                alert(`Thank you! We have your email on file: ${email}`);
+            } else {
+                alert("No email entered. Please try again.");
+            }
+        });
+    </script>
+</body>
+</html>
