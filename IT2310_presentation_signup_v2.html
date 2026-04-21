@@ -1,0 +1,165 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .header { border-bottom: 0.5px solid var(--color-border-tertiary); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+  .course-badge { display: inline-block; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; letter-spacing: 0.04em; }
+  h1 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .meta { font-size: 13px; color: var(--color-text-secondary); display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+  .col-labels { display: grid; grid-template-columns: 22px 0.5px 100px 0.5px 1fr 0.5px 1fr 0.5px 120px; gap: 0; align-items: center; padding: 0 16px; margin-bottom: 4px; }
+  .col-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: 0.05em; text-transform: uppercase; padding: 0 8px; }
+  .col-label.center { text-align: center; }
+  .slots-grid { display: flex; flex-direction: column; gap: 6px; }
+  .slot { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 10px 16px; display: grid; grid-template-columns: 22px 0.5px 100px 0.5px 1fr 0.5px 1fr 0.5px 120px; align-items: center; gap: 0; transition: border-color 0.15s; }
+  .slot:hover { border-color: var(--color-border-secondary); }
+  .slot.taken { background: var(--color-background-secondary); }
+  .slot-num { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-align: center; }
+  .vdiv { width: 0.5px; height: 32px; background: var(--color-border-tertiary); margin: 0 10px; }
+  .slot-time { font-size: 12px; font-weight: 500; color: var(--color-text-primary); white-space: nowrap; padding: 0 8px; }
+  .slot-input { border: none; background: transparent; font-size: 13px; color: var(--color-text-primary); font-family: var(--font-sans); outline: none; width: 100%; padding: 0 8px; }
+  .slot-input::placeholder { color: var(--color-text-tertiary); }
+  .gh-wrap { display: flex; align-items: center; gap: 6px; padding: 0 8px; }
+  .gh-icon { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.35; }
+  .gh-input { border: none; background: transparent; font-size: 12px; color: #185FA5; font-family: var(--font-mono); outline: none; width: 100%; min-width: 0; }
+  .gh-input::placeholder { color: var(--color-text-tertiary); font-family: var(--font-sans); font-size: 12px; }
+  .slot.taken .gh-icon { opacity: 0.6; }
+  .status-pill { display: flex; align-items: center; justify-content: center; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #C0DD97; flex-shrink: 0; }
+  .dot.taken { background: #378ADD; }
+  .footer { margin-top: 1.25rem; padding-top: 1rem; border-top: 0.5px solid var(--color-border-tertiary); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .count-label { font-size: 13px; color: var(--color-text-secondary); }
+  .count-num { font-weight: 500; color: var(--color-text-primary); }
+  .note { font-size: 12px; color: var(--color-text-tertiary); margin-top: 4px; }
+  .btn-group { display: flex; gap: 8px; }
+  .btn { font-size: 12px; color: var(--color-text-secondary); background: none; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 6px 14px; cursor: pointer; font-family: var(--font-sans); }
+  .btn:hover { background: var(--color-background-secondary); }
+  .btn-export { color: #0C447C; border-color: #B5D4F4; background: #E6F1FB; }
+  .btn-export:hover { background: #B5D4F4; }
+</style>
+
+<div class="header">
+  <div class="course-badge">IT 2310 — Web Programming</div>
+  <h1>Portfolio Project Presentations</h1>
+  <div class="meta">
+    <span>📅 Monday, April 28, 2026</span>
+    <span>🕧 12:45 – 2:14 PM</span>
+    <span>9 students &nbsp;·&nbsp; 9 slots</span>
+  </div>
+</div>
+
+<div class="col-labels">
+  <div class="col-label center">#</div>
+  <div></div>
+  <div class="col-label" style="padding-left:18px">Time</div>
+  <div></div>
+  <div class="col-label" style="padding-left:18px">Student name</div>
+  <div></div>
+  <div class="col-label" style="padding-left:18px">Project title</div>
+  <div></div>
+  <div class="col-label" style="padding-left:18px">GitHub link</div>
+</div>
+
+<div class="slots-grid" id="slotsGrid"></div>
+
+<div class="footer">
+  <div>
+    <span class="count-label">Signed up: <span class="count-num" id="takenCount">0</span> / 9</span>
+    <div class="note">Click any cell to enter your info</div>
+  </div>
+  <div class="btn-group">
+    <button class="btn" onclick="clearAll()">Clear all</button>
+    <button class="btn btn-export" onclick="exportHTML()">Export HTML ↗</button>
+  </div>
+</div>
+
+<script>
+const slots = [
+  { num:1, start:"12:45", end:"12:54" },
+  { num:2, start:"12:54", end:"1:03" },
+  { num:3, start:"1:03",  end:"1:12" },
+  { num:4, start:"1:12",  end:"1:21" },
+  { num:5, start:"1:21",  end:"1:30" },
+  { num:6, start:"1:30",  end:"1:39" },
+  { num:7, start:"1:39",  end:"1:48" },
+  { num:8, start:"1:48",  end:"1:57" },
+  { num:9, start:"1:57",  end:"2:06" }
+];
+
+const STORAGE_KEY = "it2310_signups_apr28_v2";
+let data = {};
+try { const r = localStorage.getItem(STORAGE_KEY); if(r) data = JSON.parse(r); } catch {}
+
+function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {} }
+
+function updateCount() {
+  const taken = slots.filter(s => data[s.num] && data[s.num].name && data[s.num].name.trim()).length;
+  document.getElementById("takenCount").textContent = taken;
+}
+
+function onChange(num, field, value) {
+  if (!data[num]) data[num] = { name: "", title: "", github: "" };
+  data[num][field] = value;
+  save();
+  const slot = document.querySelector(`[data-slot="${num}"]`);
+  const isTaken = data[num].name && data[num].name.trim().length > 0;
+  if (isTaken) { slot.classList.add("taken"); slot.querySelector(".dot").classList.add("taken"); }
+  else { slot.classList.remove("taken"); slot.querySelector(".dot").classList.remove("taken"); }
+  updateCount();
+}
+
+function render() {
+  const grid = document.getElementById("slotsGrid");
+  grid.innerHTML = "";
+  slots.forEach(s => {
+    const d = data[s.num] || { name:"", title:"", github:"" };
+    const isTaken = d.name && d.name.trim().length > 0;
+    const div = document.createElement("div");
+    div.className = "slot" + (isTaken ? " taken" : "");
+    div.setAttribute("data-slot", s.num);
+    div.innerHTML = `
+      <div class="slot-num">${s.num}</div>
+      <div class="vdiv"></div>
+      <div class="slot-time">${s.start} – ${s.end}</div>
+      <div class="vdiv"></div>
+      <input class="slot-input" type="text" placeholder="Full name" value="${esc(d.name)}" data-field="name" data-num="${s.num}" maxlength="60" />
+      <div class="vdiv"></div>
+      <input class="slot-input" type="text" placeholder="Project title" value="${esc(d.title)}" data-field="title" data-num="${s.num}" maxlength="80" />
+      <div class="vdiv"></div>
+      <div class="gh-wrap">
+        <svg class="gh-icon" viewBox="0 0 16 16" fill="currentColor" style="color:var(--color-text-secondary)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        <input class="gh-input" type="text" placeholder="github.com/username/repo" value="${esc(d.github)}" data-field="github" data-num="${s.num}" maxlength="120" />
+      </div>
+      <div class="dot${isTaken ? " taken" : ""}" style="display:none"></div>
+    `;
+    grid.appendChild(div);
+  });
+
+  grid.querySelectorAll("input[data-field]").forEach(inp => {
+    inp.addEventListener("input", function() {
+      onChange(parseInt(this.dataset.num), this.dataset.field, this.value);
+    });
+  });
+  updateCount();
+}
+
+function esc(s) { return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+
+function clearAll() {
+  if (confirm("Clear all sign-ups?")) { data = {}; save(); render(); }
+}
+
+function exportHTML() {
+  const rows = slots.map(s => {
+    const d = data[s.num] || { name:"", title:"", github:"" };
+    const gh = d.github ? `<a href="${d.github.startsWith("http") ? d.github : "https://"+d.github}" style="color:#185FA5">${d.github}</a>` : "";
+    return `<tr><td>${s.num}</td><td>${s.start} – ${s.end}</td><td>${d.name||""}</td><td>${d.title||""}</td><td>${gh}</td></tr>`;
+  }).join("");
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>IT 2310 Presentations – April 28, 2026</title><style>body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;color:#1a1a1a}h1{font-size:1.4rem;font-weight:500;margin-bottom:.25rem}p{color:#666;font-size:.9rem;margin-bottom:1.5rem}table{width:100%;border-collapse:collapse;font-size:.9rem}th{text-align:left;font-weight:500;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:#888;padding:8px 12px;border-bottom:1px solid #e5e5e5}td{padding:10px 12px;border-bottom:0.5px solid #f0f0f0;vertical-align:middle}tr:last-child td{border-bottom:none}tr:nth-child(even){background:#fafafa}a{color:#185FA5}</style></head><body><h1>IT 2310 — Web Programming: Portfolio Presentations</h1><p>Monday, April 28, 2026 &nbsp;·&nbsp; 12:45 – 2:14 PM</p><table><thead><tr><th>#</th><th>Time</th><th>Student name</th><th>Project title</th><th>GitHub</th></tr></thead><tbody>${rows}</tbody></table></body></html>`;
+  const blob = new Blob([html], { type: "text/html" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "IT2310_Presentations_Apr28_2026.html";
+  a.click();
+}
+
+render();
+</script>
